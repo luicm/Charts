@@ -281,7 +281,7 @@ open class XAxisRendererHorizontalBarChart: XAxisRenderer
             var clippingRect = viewPortHandler.contentRect
             clippingRect.origin.y -= l.lineWidth / 2.0
             clippingRect.size.height += l.lineWidth
-            context.clip(to: clippingRect)
+            //context.clip(to: clippingRect)
 
             position.x = 0.0
             position.y = CGFloat(l.limit)
