@@ -371,7 +371,8 @@ open class XAxisRenderer: AxisRendererBase
             var clippingRect = viewPortHandler.contentRect
             clippingRect.origin.x -= l.lineWidth / 2.0
             clippingRect.size.width += l.lineWidth
-            context.clip(to: clippingRect)
+            //context.clip(to: clippingRect)
+            dump(clippingRect)
             
             position.x = CGFloat(l.limit)
             position.y = 0.0
