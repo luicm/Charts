@@ -12,10 +12,6 @@
 import Foundation
 import CoreGraphics
 
-#if !os(OSX)
-    import UIKit
-#endif
-
 open class PieChartRenderer: DataRenderer
 {
     @objc open weak var chart: PieChartView?
@@ -39,11 +35,9 @@ open class PieChartRenderer: DataRenderer
             accessibleChartElements.removeAll()
 
             for set in pieData!.dataSets as! [IPieChartDataSet]
+                where set.isVisible && set.entryCount > 0
             {
-                if set.isVisible && set.entryCount > 0
-                {
-                    drawDataSet(context: context, dataSet: set)
-                }
+                drawDataSet(context: context, dataSet: set)
             }
         }
     }
@@ -886,7 +880,9 @@ open class PieChartRenderer: DataRenderer
 
         // Prepend selected slices before the already rendered unselected ones.
         // NOTE: - This relies on drawDataSet() being called before drawHighlighted in PieChartView.
-        accessibleChartElements.insert(contentsOf: highlightedAccessibleElements, at: 1)
+        if !accessibleChartElements.isEmpty {
+            accessibleChartElements.insert(contentsOf: highlightedAccessibleElements, at: 1)
+        }
 
         context.restoreGState()
     }
